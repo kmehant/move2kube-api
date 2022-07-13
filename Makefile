@@ -16,7 +16,7 @@ BINNAME     ?= move2kube-api
 BINDIR      := $(CURDIR)/bin
 DISTDIR		:= $(CURDIR)/_dist
 TARGETS     := darwin/amd64 linux/amd64
-REGISTRYNS  := quay.io/konveyor
+REGISTRYNS  := docker.io/kmehant
 SWAGGER_UI_VERSION := 3.52.3
 
 GO_VERSION   ?= $(shell go run ./scripts/detectgoversion/detect.go 2>/dev/null || printf '1.18')
@@ -38,6 +38,8 @@ GIT_DIRTY  = $(shell test -n "`git status --porcelain`" && echo "dirty" || echo 
 HAS_UPX    = $(shell command -v upx >/dev/null && echo true || echo false)
 
 GOGET     := cd / && GO111MODULE=on go install 
+
+export DOCKER_BUILDKIT := 1
 
 MULTI_ARCH_TARGET_PLATFORMS := linux/amd64,linux/arm64
 
